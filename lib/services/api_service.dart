@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 class ApiService {
   // Use your PC's IP address for mobile devices
   // localhost won't work on physical phones
-  static const String baseUrl = 'http://192.168.100.39:5000';
+  static const String baseUrl = 'http://172.25.198.227:5000';
 
   Future<Map<String, dynamic>> predictDiabetes({
     required double glucose,

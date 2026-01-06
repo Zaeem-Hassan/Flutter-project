@@ -100,6 +100,87 @@ class AppTheme {
       ),
     );
   }
+
+  // Light theme colors
+  static const Color lightBackgroundColor = Color(0xFFF5F7FA);
+  static const Color lightSurfaceColor = Color(0xFFFFFFFF);
+  static const Color lightCardColor = Color(0xFFFFFFFF);
+
+  static const LinearGradient lightBackgroundGradient = LinearGradient(
+    colors: [Color(0xFFF5F7FA), Color(0xFFE8ECF4)],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
+
+  static ThemeData get lightTheme {
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.light,
+      primaryColor: primaryColor,
+      scaffoldBackgroundColor: lightBackgroundColor,
+      colorScheme: const ColorScheme.light(
+        primary: primaryColor,
+        secondary: secondaryColor,
+        surface: lightSurfaceColor,
+        error: dangerColor,
+      ),
+      textTheme: GoogleFonts.poppinsTextTheme(
+        ThemeData.light().textTheme,
+      ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        titleTextStyle: GoogleFonts.poppins(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: Colors.black87,
+        ),
+        iconTheme: const IconThemeData(color: Colors.black87),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primaryColor,
+          foregroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          elevation: 4,
+          shadowColor: primaryColor.withAlpha(100),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: lightCardColor,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: Colors.grey.withAlpha(50)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: primaryColor, width: 2),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: dangerColor, width: 2),
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+        hintStyle: TextStyle(color: Colors.grey.withAlpha(150)),
+      ),
+      cardTheme: CardThemeData(
+        color: lightCardColor,
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+      ),
+    );
+  }
 }
 
 // Custom widgets
@@ -176,19 +257,27 @@ class GlassCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     return Container(
       padding: padding,
       decoration: BoxDecoration(
-        color: AppTheme.cardColor.withAlpha(204),
+        color: isDark 
+            ? AppTheme.cardColor.withAlpha(204) 
+            : Colors.white,
         borderRadius: BorderRadius.circular(24),
         border: Border.all(
-          color: Colors.white.withAlpha(25),
+          color: isDark 
+              ? Colors.white.withAlpha(25) 
+              : Colors.grey.withAlpha(30),
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withAlpha(51),
-            blurRadius: 30,
+            color: isDark 
+                ? Colors.black.withAlpha(51) 
+                : Colors.black.withAlpha(20),
+            blurRadius: isDark ? 30 : 15,
             offset: const Offset(0, 15),
           ),
         ],
